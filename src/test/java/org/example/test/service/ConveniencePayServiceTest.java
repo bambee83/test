@@ -3,6 +3,7 @@ package org.example.test.service;
 import org.example.test.type.ConvenienceType;
 import org.example.test.dto.PayRequest;
 import org.example.test.dto.PayResponse;
+import org.example.test.type.PayCancelResult;
 import org.example.test.type.PayResult;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,27 @@ class ConveniencePayServiceTest {
         // then
         assertEquals(PayResult.FAIL, payResponse.getPayResult());
         assertEquals(0,payResponse.getPaidAmount());
+    }
+
+    @Test
+    void pay_cancel_success() {
+        // given
+        PayCancelRequest payRequest = new PayCancelRequest(ConvenienceType.G25,1000);
+        // when
+        PayCancelResponse payResponse = conveniencePayService.payCancel(payRequest);
+        // then
+        assertEquals(PayCancelResult.PAY_CANCEL_SUCCESS, payResponse.getPayCancelResult());
+        assertEquals(1000,payResponse.getPayCancelAmount());
+    }
+    @Test
+    void pay_cancel_fail() {
+        // given
+        PayCancelRequest payRequest = new PayCancelRequest(ConvenienceType.G25,99);
+        // when
+        PayCancelResponse payResponse = conveniencePayService.payCancel(payRequest);
+        // then
+        assertEquals(PayCancelResult.PAY_CANCEL_FAILED, payResponse.getPayCancelResult());
+        assertEquals(0,payResponse.getPayCancelAmount());
     }
 
 }

@@ -2,6 +2,8 @@ package org.example.test.service;
 
 import org.example.test.dto.PayRequest;
 import org.example.test.dto.PayResponse;
+import org.example.test.type.MoneyUseCancelResult;
+import org.example.test.type.PayCancelResult;
 import org.example.test.type.PayResult;
 import org.example.test.type.MoneyUseResult;
 
@@ -19,6 +21,12 @@ public class ConveniencePayService {
     }
 
     public PayCancelResponse payCancel(PayCancelRequest payCancelRequest) {
-        moneyAdapter.useCancel(payCancelRequest.getPayCancelAmount());
+        MoneyUseCancelResult moneyUseCancelResult = moneyAdapter.useCancel(payCancelRequest.getPayCancelAmount());
+
+        // fail fast + Success Case (Only one)
+        if (moneyUseCancelResult == MoneyUseCancelResult.MONEY_USE_CANCEL_FAILED) {
+            return new PayCancelResponse(PayCancelResult.PAY_CANCEL_FAILED,0);
+        }
+        return new PayCancelResponse(PayCancelResult.PAY_CANCEL_SUCCESS,payCancelRequest.getPayCancelAmount());
     }
 }
