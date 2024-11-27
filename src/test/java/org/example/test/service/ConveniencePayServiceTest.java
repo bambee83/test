@@ -4,6 +4,7 @@ import org.example.test.type.ConvenienceType;
 import org.example.test.dto.PayRequest;
 import org.example.test.dto.PayResponse;
 import org.example.test.type.PayCancelResult;
+import org.example.test.type.PayMethodType;
 import org.example.test.type.PayResult;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class ConveniencePayServiceTest {
     @Test
     void pay_success() {
         // given
-        PayRequest payRequest = new PayRequest(ConvenienceType.G25,100);
+        PayRequest payRequest = new PayRequest(PayMethodType.MONEY, ConvenienceType.G25,100);
         // when
         PayResponse payResponse = conveniencePayService.pay(payRequest);
         // then
@@ -24,7 +25,7 @@ class ConveniencePayServiceTest {
     @Test
     void pay_fail() {
         // given
-        PayRequest payRequest = new PayRequest(ConvenienceType.G25,1000_001);
+        PayRequest payRequest = new PayRequest(PayMethodType.MONEY, ConvenienceType.G25,1000_001);
         // when
         PayResponse payResponse = conveniencePayService.pay(payRequest);
         // then
@@ -35,7 +36,7 @@ class ConveniencePayServiceTest {
     @Test
     void pay_cancel_success() {
         // given
-        PayCancelRequest payRequest = new PayCancelRequest(ConvenienceType.G25,1000);
+        PayCancelRequest payRequest = new PayCancelRequest(PayMethodType.MONEY, ConvenienceType.G25,1000);
         // when
         PayCancelResponse payResponse = conveniencePayService.payCancel(payRequest);
         // then
@@ -45,7 +46,7 @@ class ConveniencePayServiceTest {
     @Test
     void pay_cancel_fail() {
         // given
-        PayCancelRequest payRequest = new PayCancelRequest(ConvenienceType.G25,99);
+        PayCancelRequest payRequest = new PayCancelRequest(PayMethodType.MONEY, ConvenienceType.G25,99);
         // when
         PayCancelResponse payResponse = conveniencePayService.payCancel(payRequest);
         // then
