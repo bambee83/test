@@ -1,5 +1,7 @@
 package org.example.test.dto;
 
+import org.example.test.type.PayResult;
+
 public class PayResponse {
     // 결제 결과
     PayResult payResult;

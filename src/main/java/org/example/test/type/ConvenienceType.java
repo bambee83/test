@@ -1,4 +1,4 @@
-package org.example.test.dto;
+package org.example.test.type;
 
 public enum ConvenienceType {
     G25 , GU, SEVEN
